@@ -1,38 +1,45 @@
+name: Terraform Workflow
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 # Checks out your repository code
 
       - name: Set up AWS credentials
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} # Pulls AWS access key ID from secrets
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Pulls AWS secret access key from secrets
         run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID # Configures AWS access key ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY # Configures AWS secret access key
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v1 # Sets up Terraform with the specified version
         with:
           terraform_version: 1.5.7 # Replace with your desired Terraform version (e.g., 1.5.7)
 
       - name: Initialize Terraform
-        run: terraform init
+        run: terraform init # Initializes Terraform in your repository
 
       - name: Validate Terraform
-        run: terraform validate
+        run: terraform validate # Validates your Terraform configurations
 
       - name: Plan Terraform Changes
-        run: terraform plan -out=tfplan
-        continue-on-error: true
+        run: terraform plan -out=tfplan # Generates an execution plan and saves it to tfplan
+        continue-on-error: true # Continues even if the plan step fails
 
       - name: Apply Terraform Changes
-        if: ${{ success() }}
-        run: terraform apply -auto-approve tfplan
+        if: ${{ success() }} # Runs only if the previous steps were successful
+        run: terraform apply -auto-approve tfplan # Applies Terraform changes using the plan generated earlier
 
       - name: Cleanup Terraform Files
-        if: ${{ success() }}
-        run: rm -f tfplan
+        if: ${{ success() }} # Runs only if the previous steps were successful
+        run: rm -f tfplan # Removes the plan file

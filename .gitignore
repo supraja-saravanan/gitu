@@ -1,0 +1,28 @@
+# Exclude lock files
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+
+# Exclude provider plugins downloaded from the Terraform Registry
+.terraform/providers/registry.terraform.io/hashicorp/
+
+# Terraform .terraform directories and their contents
+**/.terraform/*
+
+# Exclude .tfstate files and backups
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+
+# Exclude crash log files
+crash.log
+
+# Exclude sensitive variables file
+terraform.tfvars
+
+# Exclude override variables file
+override.tf
+
+# Exclude CLI configuration files
+.terraformrc
+terraform.rc

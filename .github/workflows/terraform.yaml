@@ -11,35 +11,35 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2 # Checks out your repository code
+        uses: actions/checkout@v2 
 
       - name: Set up AWS credentials
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} # Pulls AWS access key ID from secrets
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Pulls AWS secret access key from secrets
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
         run: |
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID # Configures AWS access key ID
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY # Configures AWS secret access key
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1 # Sets up Terraform with the specified version
+        uses: hashicorp/setup-terraform@v1 
         with:
-          terraform_version: 1.5.7 # Replace with your desired Terraform version (e.g., 1.5.7)
+          terraform_version: 1.5.7 
 
       - name: Initialize Terraform
-        run: terraform init # Initializes Terraform in your repository
+        run: terraform init 
 
       - name: Validate Terraform
-        run: terraform validate # Validates your Terraform configurations
+        run: terraform validate 
 
       - name: Plan Terraform Changes
-        run: terraform plan -out=tfplan # Generates an execution plan and saves it to tfplan
-        continue-on-error: true # Continues even if the plan step fails
+        run: terraform plan -out=tfplan 
+        continue-on-error: true 
 
       - name: Apply Terraform Changes
-        if: ${{ success() }} # Runs only if the previous steps were successful
-        run: terraform apply -auto-approve tfplan # Applies Terraform changes using the plan generated earlier
+        if: ${{ success() }} 
+        run: terraform apply -auto-approve tfplan 
 
       - name: Cleanup Terraform Files
-        if: ${{ success() }} # Runs only if the previous steps were successful
-        run: rm -f tfplan # Removes the plan file
+        if: ${{ success() }} 
+        run: rm -f tfplan 

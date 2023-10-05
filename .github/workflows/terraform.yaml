@@ -42,4 +42,4 @@ jobs:
 
       - name: Cleanup Terraform Files
         if: ${{ success() }} 
-        run: rm -f tfplan 
+        run: rm -f tfplan

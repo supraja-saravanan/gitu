@@ -22,7 +22,7 @@ jobs:
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY # Configures AWS secret access key
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1 
+        uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.5.7 
 

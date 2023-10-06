@@ -360,7 +360,7 @@ resource "null_resource" "ran_public" {
   depends_on = [aws_instance.two-ec2]
 }
 
-# Null resource for public 
+# Null resource for public
 resource "null_resource" "mon_public" {
   connection {
     type        = "ssh"

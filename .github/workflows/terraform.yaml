@@ -39,6 +39,15 @@ jobs:
       - name: Apply Terraform Changes
         if: ${{ success() }} 
         run: terraform apply -auto-approve tfplan 
+        
+      - name: Sleep for 15 minutes
+        if: ${{ success() }}
+        run: sleep 900
+
+      - name: Destroy Terraform Resources
+        if: ${{ success() }}
+        run: terraform destroy -auto-approve
+        
 
       - name: Cleanup Terraform Files
         if: ${{ success() }} 

@@ -7,11 +7,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket         	   = "loosu"
+    bucket         	   = "sctp111"
     key              	   = "state/terraform.tfstate"
     region         	   = "us-east-1"
     encrypt        	   = true
-    dynamodb_table = "mental"
+    dynamodb_table = "sctp21"
   }
 }
 

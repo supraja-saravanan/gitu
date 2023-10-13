@@ -28,7 +28,7 @@ resource "aws_vpc" "one-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "one-Vpc"
+    Name = "one-vpc"
   }
 }
 

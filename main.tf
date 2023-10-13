@@ -287,6 +287,17 @@ resource "aws_instance" "one-ec2" {
   vpc_security_group_ids = [aws_security_group.public_sg1.id]
   subnet_id     = aws_subnet.public-subnet1.id
   associate_public_ip_address = true
+  connection {
+  type = "ssh"
+  host = aws_instance.one-ec2.public_ip
+  user = "ubuntu"
+  private_key = tls_private_key.rsa.private_key_pem
+  }
+
+  provisioner "file" {
+  source = "./EKS_kp"
+  destination = "/home/ubuntu/EKS_kp"
+  }
 
   root_block_device {
     volume_size = 25
@@ -306,6 +317,17 @@ resource "aws_instance" "two-ec2" {
   vpc_security_group_ids = [aws_security_group.public_sg2.id]
   subnet_id     = aws_subnet.public-subnet2.id
   associate_public_ip_address = true
+  connection {
+  type = "ssh"
+  host = aws_instance.two-ec2.public_ip
+  user = "ubuntu"
+  private_key = tls_private_key.rsa.private_key_pem
+  }
+
+  provisioner "file" {
+  source = "./EKS_kp"
+  destination = "/home/ubuntu/EKS_kp"
+  }
 
   root_block_device {
     volume_size = 25
@@ -325,6 +347,18 @@ resource "aws_instance" "three-ec2" {
   vpc_security_group_ids = [aws_security_group.public_sg3.id]
   subnet_id     = aws_subnet.public-subnet3.id
   associate_public_ip_address = true
+  connection {
+  type = "ssh"
+  host = aws_instance.three-ec2.public_ip
+  user = "ubuntu"
+  private_key = tls_private_key.rsa.private_key_pem
+  }
+
+  provisioner "file" {
+  source = "./EKS_kp"
+  destination = "/home/ubuntu/EKS_kp"
+  }
+
 
   root_block_device {
     volume_size = 25

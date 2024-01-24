@@ -7,11 +7,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket         	   = "sctp1112"
+    bucket         	   = "onelasttrail"
     key              	   = "state/terraform.tfstate"
     region         	   = "us-east-1"
     encrypt        	   = true
-    dynamodb_table = "sctp21"
+    dynamodb_table = "lastonetrail"
   }
 }
 
